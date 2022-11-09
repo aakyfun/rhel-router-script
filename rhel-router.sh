@@ -82,7 +82,7 @@ firewall-cmd --reload && echo "Done!"
 #### ENABLE IPv4 FORWARDING
 #
 echo "[*] Enabling IPv4 forwarding in sysctl.conf"
-echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/ip4fw.conf
 
 #### FINISHING
 #
