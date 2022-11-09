@@ -86,5 +86,5 @@ echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 
 #### FINISHING
 #
-echo "It is recommended you reboot. Thank you"
+echo "It is recommended that you reboot. Thank you"
 exit
