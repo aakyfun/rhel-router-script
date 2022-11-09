@@ -80,17 +80,21 @@ nmcli con mod uuid ${NM_LAN_CON_UUID} ipv4.method manual ipv4.addresses '10.0.0.
 #### FIREWALLD
 #
 echo "[*] Configuring firewalld"
+echo "Setting default zone to internal"
 firewall-cmd --set-default-zone internal
+echo "Adding DNS and DHCP service exceptions"
 firewall-cmd --permanent --zone=internal --add-service={dns,dhcp}
+echo "Enabling IP Masquerading/Source Network Address Translation"
 firewall-cmd --permanent --zone internal --add-masquerade
 firewall-cmd --reload && echo "Done!"
 
 #### ENABLE IPv4 FORWARDING
 #
-echo "[*] Enabling IPv4 forwarding in sysctl.conf"
+echo "[*] Enabling IPv4 forwarding in sysctl.d/ip4fw.conf"
 echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/ip4fw.conf
 
 #### FINISHING
 #
-echo "It is recommended you reboot. Thank you"
+echo "It is recommended you reboot, but you don't have to ;)"
+echo "Thank you. Bye!"
 exit
