@@ -49,8 +49,14 @@ EOF
 echo "Testing config"
 dnsmasq --test && echo "Good!"
 echo "Adding an entry to /etc/hosts for your hostname"
-echo -e "10.0.0.1\t$(hostname)\n" >> /etc/hosts
-# Sorry this (^) will add multiple entries if you re run the script!
+#echo -e "10.0.0.1\t$(hostname)\n" >> /etc/hosts
+if [ "$(grep -E "10.0.0.1.*$(hostname)" /etc/hosts | wc -l)" -eq "1" ]
+then
+        echo "We already added the hostname to hosts"
+else
+        echo "Adding hostname to hosts"
+        echo -e "10.0.0.1\t$(hostname)" >> /etc/hosts
+fi
 echo "Enabling and starting dnsmasq service"
 systemctl enable --now dnsmasq && echo "Done!"
 
