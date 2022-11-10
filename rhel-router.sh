@@ -73,6 +73,9 @@ NM_INET_CON_UUID=`nmcli --terse con show | grep "${INET_IF}" | cut -d ':' -f 2`
 NM_LAN_CON_UUID=`nmcli --terse con show | grep -v "${INET_IF}" | cut -d ':' -f 2`
 echo "The current Internet connection is: ${NM_INET_CON_UUID}"
 echo "The current LAN connection is: ${NM_LAN_CON_UUID}"
+echo "Giving these connections names: External and Internal"
+nmcli con mod uuid ${NM_INET_CON_UUID} connection.id "External"
+nmcli con mod uuid ${NM_LAN_CON_UUID} connection.id "Internal"
 echo "Applying settings to LAN connection"
 nmcli con mod uuid ${NM_LAN_CON_UUID} ipv4.method manual ipv4.addresses '10.0.0.1/24' ipv4.never-default yes ipv6.method ignore && echo "Done!"
 
